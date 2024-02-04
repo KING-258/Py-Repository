@@ -1,9 +1,7 @@
-from telegram import Bot
-import asyncio
 import cv2
-import importlib
-import pywhatkit as pwk
-def main():
+import TelegramMessage as tt
+flag = 0
+def Cam():
     video_capture = cv2.VideoCapture(0)
     previous_frame = None
     while True:
@@ -21,6 +19,7 @@ def main():
         contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
             if cv2.contourArea(contour) < 1000:
+                flag = 1
                 continue
             (x, y, w, h) = cv2.boundingRect(contour)
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -30,6 +29,11 @@ def main():
             break
     video_capture.release()
     cv2.destroyAllWindows()
-
+def main():
+    Cam()
+    if flag == 1:
+        tt.main()
+    else :
+        print("No Motion")
 if __name__ == "__main__" :
     main()
