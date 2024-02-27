@@ -1,6 +1,4 @@
 import cv2
-import TelegramMessage as tt
-flag = 0
 def Cam():
     video_capture = cv2.VideoCapture(0)
     previous_frame = None
@@ -31,9 +29,5 @@ def Cam():
     cv2.destroyAllWindows()
 def main():
     Cam()
-    if flag == 1:
-        tt.main()
-    else :
-        print("No Motion")
 if __name__ == "__main__" :
     main()
